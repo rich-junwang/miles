@@ -43,6 +43,9 @@ PYTHONPATH=${MEGATRON_PATH}:${SRC_DIR} python ${SRC_DIR}/tools/convert_hf_to_tor
     --hf-checkpoint ${MODEL_DIR} \
     --save ${MODEL_DIR_DIST}
 
+echo "Model exporting is done!!"
+
+
 CKPT_ARGS=(
    --hf-checkpoint ${MODEL_DIR}
    --ref-load ${MODEL_DIR_DIST}
