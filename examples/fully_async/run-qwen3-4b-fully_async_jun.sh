@@ -29,6 +29,7 @@ MEGATRON_PATH=/opt/tiger/megatron-lm
 FULLY_ASYNC_DIR=${SRC_DIR}/examples/fully_async/
 MODEL_DIR=/opt/tiger/models/qwen3_4b
 MODEL_DIR_DIST=${MODEL_DIR}_torch_dist
+NUM_GPUS=4
 
 # download model and data
 hf download Qwen/Qwen3-4B --local-dir ${MODEL_DIR}
@@ -37,7 +38,7 @@ hf download --repo-type dataset zhuzilin/dapo-math-17k --local-dir ${DATA_DIR}
 #SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 source "${SRC_DIR}/scripts/models/qwen3-4B.sh"
 
-PYTHONPATH=${MEGATRON_PATH} python ${SRC_DIR}/tools/convert_hf_to_torch_dist.py \
+PYTHONPATH=${MEGATRON_PATH}:${SRC_DIR}:$PYTHONPATH python ${SRC_DIR}/tools/convert_hf_to_torch_dist.py \
     ${MODEL_ARGS[@]} \
     --hf-checkpoint ${MODEL_DIR} \
     --save ${MODEL_DIR_DIST}
@@ -132,7 +133,7 @@ MISC_ARGS=(
 
 # launch the master node of ray in container
 export MASTER_ADDR=${MASTER_ADDR:-"127.0.0.1"}
-ray start --head --node-ip-address ${MASTER_ADDR} --num-gpus 8 --disable-usage-stats
+ray start --head --node-ip-address ${MASTER_ADDR} --num-gpus ${NUM_GPUS} --disable-usage-stats
 
 RUNTIME_ENV_JSON="{
   \"env_vars\": {
