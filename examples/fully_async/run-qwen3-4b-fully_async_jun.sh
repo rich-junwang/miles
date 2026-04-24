@@ -25,7 +25,7 @@ echo "HAS_NVLINK: $HAS_NVLINK (detected $NVLINK_COUNT NVLink references)"
 
 SRC_DIR=/opt/tiger/miles
 DATA_DIR=/opt/tiger/dapo-math-17k
-MEGATRON_PATH=/opt/tiger/megatron-lm
+MEGATRON_PATH=/opt/tiger/Megatron-LM
 FULLY_ASYNC_DIR=${SRC_DIR}/examples/fully_async/
 MODEL_DIR=/opt/tiger/models/qwen3_4b
 MODEL_DIR_DIST=${MODEL_DIR}_torch_dist
