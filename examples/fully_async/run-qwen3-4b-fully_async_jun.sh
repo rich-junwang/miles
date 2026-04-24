@@ -38,7 +38,7 @@ hf download --repo-type dataset zhuzilin/dapo-math-17k --local-dir ${DATA_DIR}
 #SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 source "${SRC_DIR}/scripts/models/qwen3-4B.sh"
 
-PYTHONPATH=${MEGATRON_PATH}:${SRC_DIR}:$PYTHONPATH python ${SRC_DIR}/tools/convert_hf_to_torch_dist.py \
+PYTHONPATH=${MEGATRON_PATH}:${SRC_DIR} python ${SRC_DIR}/tools/convert_hf_to_torch_dist.py \
     ${MODEL_ARGS[@]} \
     --hf-checkpoint ${MODEL_DIR} \
     --save ${MODEL_DIR_DIST}
