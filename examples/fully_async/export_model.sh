@@ -43,6 +43,7 @@ export LD_PRELOAD=/usr/local/src/nccl/build/lib/libnccl.so.2.29.3
 export NCCL_DEBUG=INFO
 export NCCL_SOCKET_IFNAME=eth0
 export NCCL_NCHANNELS_PER_NET_PEER=4
+export PYTHONPATH=${MEGATRON_PATH}:${SRC_DIR}
 torchrun --nproc_per_node=4 --master_port=12356 \
 ${SRC_DIR}/tools/convert_hf_to_torch_dist.py \
 ${MODEL_ARGS[@]} \
