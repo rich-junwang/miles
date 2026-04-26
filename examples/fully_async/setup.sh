@@ -14,7 +14,7 @@ make install
 MEGATRON_REPO=radixark/Megatron-LM
 MEGATRON_BRANCH=miles-main
 MEGATRON_PATH=/opt/tiger/Megatron-LM
-
+SGLANG_PATH=/opt/tiger/sglang
 
 # install apex
 NVCC_APPEND_FLAGS="--threads 4" \
@@ -35,9 +35,17 @@ pip install nvidia-mathdx==25.6.0 --user && \
 pip -v install --no-build-isolation "transformer_engine[core_cu13,pytorch]==2.10.0" --user
 
 
+# install sglang
+git clone -b sglang-miles https://github.com/sgl-project/sglang ${SGLANG_PATH} && cd ${SGLANG_PATH} && pip3 install -e "python[all]" --no-deps --user
+
 #pip3 install -U "ray[all]"
 pip3 install -U "ray[default]" --user
 pip3 install typer httpx --user
 pip3 install sglang --user
 pip3 install sglang-router>=0.2.3 --user
+pip3 SGL_KERNEL_VERSION=0.3.17.post2 && \
+    python3 -m pip install https://github.com/sgl-project/whl/releases/download/v${SGL_KERNEL_VERSION}/sgl_kernel-${SGL_KERNEL_VERSION}+cu130-cp310-abi3-manylinux2014_$(uname -m).whl --force-reinstall --no-deps --user
 pip3 install git+https://github.com/ISEEKYAN/mbridge.git@89eb10887887bc74853f89a4de258c0702932a1c --no-deps --user
+
+pip3 install "protobuf<=3.20.3" --user
+pip3 install "numpy<2" --user
