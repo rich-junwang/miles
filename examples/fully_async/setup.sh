@@ -38,6 +38,9 @@ pip -v install --no-build-isolation "transformer_engine[core_cu13,pytorch]==2.10
 # install sglang
 git clone -b sglang-miles https://github.com/sgl-project/sglang ${SGLANG_PATH} && cd ${SGLANG_PATH} && pip3 install -e "python[all]" --no-deps --user
 
+# install mooncake
+pip3 install mooncake-transfer-engine-cuda13 --user
+
 #pip3 install -U "ray[all]"
 pip3 install -U "ray[default]" --user
 pip3 install typer httpx --user
