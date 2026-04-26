@@ -15,6 +15,7 @@ MEGATRON_REPO=radixark/Megatron-LM
 MEGATRON_BRANCH=miles-main
 MEGATRON_PATH=/opt/tiger/Megatron-LM
 SGLANG_PATH=/opt/tiger/sglang
+MOONCAKE_PATH=/opt/tiger/mooncake
 
 # install apex
 NVCC_APPEND_FLAGS="--threads 4" \
@@ -39,7 +40,16 @@ pip -v install --no-build-isolation "transformer_engine[core_cu13,pytorch]==2.10
 git clone -b sglang-miles https://github.com/sgl-project/sglang ${SGLANG_PATH} && cd ${SGLANG_PATH} && pip3 install -e "python[all]" --no-deps --user
 
 # install mooncake
-pip3 install mooncake-transfer-engine-cuda13 --user
+#pip3 install mooncake-transfer-engine-cuda13 --user
+git clone --recurse-submodules https://github.com/kvcache-ai/Mooncake.git ${MOONCAKE_PATH}
+cd ${MOONCAKE_PATH}
+bash ./dependencies.sh
+mkdir build
+cd build
+cmake ..
+make -j
+sudo make install 
+
 
 #pip3 install -U "ray[all]"
 pip3 install -U "ray[default]" --user
