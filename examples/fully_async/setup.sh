@@ -43,18 +43,18 @@ git clone -b sglang-miles https://github.com/sgl-project/sglang ${SGLANG_PATH} &
 #pip3 install mooncake-transfer-engine-cuda13 --user
 git clone --recurse-submodules https://github.com/kvcache-ai/Mooncake.git ${MOONCAKE_PATH}
 cd ${MOONCAKE_PATH}
-bash ./dependencies.sh
+sudo bash ./dependencies.sh
 mkdir build
 cd build
 cmake ..
 make -j
-sudo make install 
+sudo make install
 
 
 #pip3 install -U "ray[all]"
 pip3 install -U "ray[default]" --user
-pip3 install typer httpx --user
-pip3 install sglang --user
+pip3 install typer httpx pylatexenc --user
+
 pip3 install sglang-router>=0.2.3 --user
 pip3 SGL_KERNEL_VERSION=0.3.17.post2 && \
     python3 -m pip install https://github.com/sgl-project/whl/releases/download/v${SGL_KERNEL_VERSION}/sgl_kernel-${SGL_KERNEL_VERSION}+cu130-cp310-abi3-manylinux2014_$(uname -m).whl --force-reinstall --no-deps --user
@@ -62,3 +62,6 @@ pip3 install git+https://github.com/ISEEKYAN/mbridge.git@89eb10887887bc74853f89a
 
 pip3 install "protobuf<=3.20.3" --user
 pip3 install "numpy<2" --user
+
+# flash-attn
+MAX_JOBS=64 pip3 -v install flash-attn==2.7.4.post1 --no-build-isolation --user
